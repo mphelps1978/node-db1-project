@@ -10,9 +10,11 @@ const router = express.Router();
 // GET
 
 router.get('/', (req, res) => {
-    let {limit, sortby, sortdir} = req
+    console.log(req);
+
+    let {limit = 5, sortby = 'id', sortdir = 'asc'} = req.query
     db('accounts')
-    .orderBy(sortby, sortdir) 
+    .orderBy(sortby, sortdir)
     .limit(limit)
     .then(accounts => {
         res.status(200).json(accounts)
