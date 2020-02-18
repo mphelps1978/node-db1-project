@@ -10,7 +10,7 @@ const router = express.Router();
 // GET
 
 router.get('/', (req, res) => {
-    console.log(req);
+    // console.log(req);
 
     let {limit = 5, sortby = 'id', sortdir = 'asc'} = req.query
     db('accounts')
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 })
 
 // GET BY ID
-router.get('/:id', (req, res) => {
+router.get('/:id', validateID, (req, res) => {
     db('accounts')
     .where({id: req.params.id})
     .then(account => {
@@ -109,9 +109,13 @@ router.delete('/:id', validateID, (req, res) => {
 
 
 function validateID(req, res, next) {
+    console.log(typeof req.params.id, req.params.id);
+
     db('accounts')
     .where({id: req.params.id})
+    .first()
       .then(account => {
+          console.log(account)
         if (!account) {
           res.status(400).json({ message: 'Invalid account ID' });
         } else {

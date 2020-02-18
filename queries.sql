@@ -42,9 +42,8 @@ FROM Customers;
 
 -- (Stretch) Find all suppliers who have names longer than 20 characters. You can use `length(SupplierName)` to get the length of the name
 
-SELECT *
+SELECT SupplierName
 FROM Suppliers
-GROUP BY SupplierName
-HAVING LENGTH(SupplierName)<20;
+WHERE LENGTH(SupplierName) > 20;
 
 -- The above query I tried multiple ways, but it always returned 17 over 11 as was suggested in the readme
