@@ -10,7 +10,10 @@ const router = express.Router();
 // GET
 
 router.get('/', (req, res) => {
+    let {limit, sortby, sortdir} = req
     db('accounts')
+    .orderBy(sortby, sortdir) 
+    .limit(limit)
     .then(accounts => {
         res.status(200).json(accounts)
     })
